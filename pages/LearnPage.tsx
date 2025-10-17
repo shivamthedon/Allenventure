@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { LEARNING_TOPICS } from '../constants';
 import { getVisualEducationalContent, generateImageFromPrompt, getSimplerEducationalContent, getQuizForTopic } from '../services/geminiService';
 import type { VisualLearningContent, UserFinancialProfile, Quiz } from '../types';
@@ -17,10 +17,17 @@ const LearnPage: React.FC<LearnPageProps> = ({ userProfile }) => {
     const [error, setError] = useState<string | null>(null);
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+    const [pageContent, setPageContent] = useState<any>(null);
     
     // State for quiz
     const [quiz, setQuiz] = useState<Quiz | null>(null);
     const [isQuizLoading, setIsQuizLoading] = useState(false);
+
+    useEffect(() => {
+        fetch('http://localhost:3001/api/content')
+            .then(res => res.json())
+            .then(data => setPageContent(data.learnPage));
+    }, []);
 
     const handleModuleClick = useCallback(async (title: string) => {
         if (selectedTopic === title && content) {
@@ -44,18 +51,27 @@ const LearnPage: React.FC<LearnPageProps> = ({ userProfile }) => {
         }
        
         try {
-            const result = await getVisualEducationalContent([{ sender: 'user', content: title }]);
-            setContent(result);
+            const section = pageContent.sections.find((s: any) => s.title === title);
+            if (section) {
+                setContent({
+                    topic: section.title,
+                    explanation: section.content,
+                    imagePrompt: ''
+                });
+            } else {
+                const result = await getVisualEducationalContent([{ sender: 'user', content: title }]);
+                setContent(result);
 
-            if (result.imagePrompt) {
-                setIsGeneratingImage(true);
-                try {
-                    const generatedUrl = await generateImageFromPrompt(result.imagePrompt);
-                    setImageUrl(generatedUrl);
-                } catch (imgError) {
-                    console.error("Image generation failed:", imgError);
-                } finally {
-                    setIsGeneratingImage(false);
+                if (result.imagePrompt) {
+                    setIsGeneratingImage(true);
+                    try {
+                        const generatedUrl = await generateImageFromPrompt(result.imagePrompt);
+                        setImageUrl(generatedUrl);
+                    } catch (imgError) {
+                        console.error("Image generation failed:", imgError);
+                    } finally {
+                        setIsGeneratingImage(false);
+                    }
                 }
             }
         } catch (err) {
@@ -65,7 +81,7 @@ const LearnPage: React.FC<LearnPageProps> = ({ userProfile }) => {
         } finally {
             setIsLoading(false);
         }
-    }, [selectedTopic, content]);
+    }, [selectedTopic, content, pageContent]);
     
     const handleSimplifyContent = useCallback(async () => {
         if (!content) return;

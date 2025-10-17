@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Chatbot from './components/Chatbot';
 import type { UserFinancialProfile, InvestmentRecommendation } from './types';
 import ProjectDocumentPage from './pages/ProjectDocumentPage';
+import AdminPage from './pages/AdminPage';
 
 function App() {
   const [userProfile, setUserProfile] = useState<UserFinancialProfile | null>(() => {
@@ -102,6 +103,7 @@ function App() {
             />
             <Route path="/learn" element={<LearnPage userProfile={userProfile} />} />
             <Route path="/project-document" element={<ProjectDocumentPage />} />
+            <Route path="/admin" element={<AdminPage />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>

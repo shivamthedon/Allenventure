@@ -1,0 +1,19 @@
+{
+  "learnPage": {
+    "title": "Learn About AI",
+    "sections": [
+      {
+        "title": "Introduction to AI",
+        "content": "Artificial intelligence (AI) is a wide-ranging branch of computer science concerned with building smart machines capable of performing tasks that typically require human intelligence."
+      },
+      {
+        "title": "Machine Learning",
+        "content": "Machine learning is a subset of AI that provides systems the ability to automatically learn and improve from experience without being explicitly programmed."
+      },
+      {
+        "title": "Deep Learning",
+        "content": "Deep learning is a subset of machine learning where artificial neural networks, algorithms inspired by the human brain, learn from large amounts of data."
+      }
+    ]
+  }
+}
