@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Allen Venture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.22.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "recharts": "https://aistudiocdn.com/recharts@^3.2.1",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.3"
+  }
+}
+</script>
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideInUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+    50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+  }
+  @keyframes pop-in {
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes fadeInSlight {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes confetti-rain {
+    0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(200%) rotate(360deg); opacity: 0; }
+  }
+  @keyframes flash-green {
+    0% { background-color: rgba(16, 185, 129, 0.2); }
+    100% { background-color: transparent; }
+  }
+  @keyframes flash-red {
+    0% { background-color: rgba(239, 68, 68, 0.2); }
+    100% { background-color: transparent; }
+  }
+
+  .confetti {
+    position: absolute;
+    width: 8px;
+    height: 16px;
+    animation: confetti-rain 1s linear forwards;
+    top: 0;
+  }
+
+  .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; will-change: opacity; }
+  .animate-slide-in-up { animation: slideInUp 0.5s ease-out forwards; will-change: transform, opacity; }
+  .animate-fade-in-slight { animation: fadeInSlight 0.3s ease-out forwards; }
+  .animate-pulse-slow { animation: pulse 2s infinite; }
+  .animate-pop-in { animation: pop-in 0.3s ease-out forwards; }
+  .animate-flash-green { animation: flash-green 0.8s ease-out; }
+  .animate-flash-red { animation: flash-red 0.8s ease-out; }
+
+  /* Staggered animations */
+  .stagger-1 { animation-delay: 100ms; }
+  .stagger-2 { animation-delay: 200ms; }
+  .stagger-3 { animation-delay: 300ms; }
+  .stagger-4 { animation-delay: 400ms; }
+  .stagger-5 { animation-delay: 500ms; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc; /* bg-slate-50 */
+    background-image:
+      radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0),
+      radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0);
+    background-size: 32px 32px;
+    background-position: 0 0, 16px 16px;
+  }
+</style>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
